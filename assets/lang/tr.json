@@ -1,0 +1,11 @@
+{
+  "order_book": "Sipariş Defteri",
+  "settings": "Ayarlar",
+  "market_type": "XHT/USDT",
+  "interval_title": "Aralık",
+  "price": "Ücret",
+  "amount": "Miktar",
+  "total": "Toplam",
+  "sellers": "Satıcılar",
+  "buyers": "Alıcılar"
+}

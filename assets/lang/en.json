@@ -1,0 +1,11 @@
+{
+  "order_book": "Order Book",
+  "settings": "Settings",
+  "market_type": "XHT/USDT",
+  "interval_title": "Interval",
+  "price": "Price",
+  "amount": "Amount",
+  "total": "Total",
+  "sellers": "Sellers",
+  "buyers": "Buyers"
+}
