@@ -31,11 +31,11 @@ class TextStyles {
   /// Such as: "welcomeDescription", "RoundedButton" action text and so on.
   TextStyle bodyStyle({Color? color, FontWeight? fontWeight, double? height}) =>
       TextStyle(
-        fontSize: _context.responsiveSize * 5.8,
+        fontSize: _context.responsiveSize * 5.6,
         color: color ?? _color,
-        fontWeight: fontWeight ?? FontWeight.w500,
-        wordSpacing: 2,
-        letterSpacing: .7,
+        fontWeight: fontWeight ?? FontWeight.w400,
+        wordSpacing: 1.3,
+        letterSpacing: .4,
         height: height,
       );
 
@@ -47,8 +47,8 @@ class TextStyles {
         fontSize: _context.responsiveSize * 4.8,
         color: color ?? _color,
         fontWeight: FontWeight.w400,
-        wordSpacing: 2.4,
-        letterSpacing: 1.1,
+        wordSpacing: 1.2,
+        letterSpacing: .3,
         decoration: decoration,
         height: height,
       );
@@ -61,8 +61,8 @@ class TextStyles {
         fontSize: _context.responsiveSize * (fontSizeFactor ?? 6),
         color: color ?? _color,
         fontWeight: fontWeight ?? FontWeight.w500,
-        wordSpacing: 3,
-        letterSpacing: 1.2,
+        wordSpacing: 1.7,
+        letterSpacing: .7,
       );
 
   /// Custom text style for text form field texts.

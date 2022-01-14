@@ -6,8 +6,6 @@ import '../../../core/decoration/text_styles.dart';
 import '../../../core/extensions/context/responsiveness_extensions.dart';
 import '../../../core/extensions/context/theme_extensions.dart';
 import '../../../core/theme/color/l_colors.dart';
-import '../../../core/widgets/app-bar/default_app_bar.dart';
-import '../../../core/widgets/divider/custom_divider.dart';
 import '../../../core/widgets/list/custom_checkbox_tile.dart';
 import '../../../core/widgets/widgets_shelf.dart';
 import '../../../product/constants/enums/settings_enums.dart';
@@ -31,7 +29,7 @@ class SettingsScreen extends StatelessWidget with SettingsTexts {
           titleText: SettingsTexts.title,
           titleIcon: Icons.settings_outlined,
           showBack: true,
-          textStyle: TextStyles(context).normalStyle(color: AppColors.white),
+          textStyle: TextStyles(context).titleStyle(color: AppColors.white),
         ),
       );
 

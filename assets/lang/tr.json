@@ -7,5 +7,6 @@
   "amount": "Miktar",
   "total": "Toplam",
   "sellers": "Satıcılar",
-  "buyers": "Alıcılar"
+  "buyers": "Alıcılar",
+  "spread": "yayılım"
 }

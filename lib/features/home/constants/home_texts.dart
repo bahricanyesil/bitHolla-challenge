@@ -17,11 +17,14 @@ mixin HomeTexts on Widget {
   static const List<String> tableTitles = <String>['price', 'amount', 'total'];
 
   /// List of subtitle texts for the table.
-  static const List<String> tableSubtitles = <String>['(USDT)', '(XHT)', 'XHT'];
+  static const List<String> tableSubtitles = <String>['USDT', 'XHT'];
 
   /// Text key for the sellers text.
   static const String sellers = 'sellers';
 
   /// Text key for the buyers text.
   static const String buyers = 'buyers';
+
+  /// Text key for "spread".
+  static const String spread = 'spread';
 }

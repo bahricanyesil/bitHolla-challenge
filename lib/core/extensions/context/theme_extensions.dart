@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:bitholla_challenge/core/extensions/color/color_extensions.dart';
-import 'package:bitholla_challenge/core/theme/color/l_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme/theme_provider.dart';
+import '../../theme/color/l_colors.dart';
+import '../color/color_extensions.dart';
 import 'responsiveness_extensions.dart';
 
 /// Theme extension for easy use with context.

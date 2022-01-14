@@ -1,10 +1,10 @@
-import 'package:bitholla_challenge/core/extensions/text-style/decoration_extensions.dart';
-import 'package:bitholla_challenge/core/providers/providers_shelf.dart';
 import 'package:flutter/material.dart';
 
 import '../../decoration/text_styles.dart';
 import '../../extensions/context/language_helpers.dart';
 import '../../extensions/string/string_util_extensions.dart';
+import '../../extensions/text-style/decoration_extensions.dart';
+import '../../providers/providers_shelf.dart';
 
 /// Base text with custom parameters but not wrapped with [FittedBox].
 class NotFittedText extends StatelessWidget {

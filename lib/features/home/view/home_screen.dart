@@ -1,20 +1,28 @@
-import 'package:bitholla_challenge/core/constants/enums/view-enums/sizes.dart';
-import 'package:bitholla_challenge/core/widgets/divider/custom_divider.dart';
-import 'package:bitholla_challenge/core/widgets/text/lined-text/lined_text.dart';
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/base/view/base_view.dart';
+import '../../../core/constants/enums/view-enums/sizes.dart';
 import '../../../core/decoration/text_styles.dart';
-import '../../../core/extensions/context/language_helpers.dart';
 import '../../../core/extensions/extensions_shelf.dart';
 import '../../../core/managers/navigation/navigation_shelf.dart';
 import '../../../core/theme/color/l_colors.dart';
-import '../../../core/widgets/app-bar/default_app_bar.dart';
-import '../../../core/widgets/slider/customized_slider.dart';
 import '../../../core/widgets/widgets_shelf.dart';
+import '../../../product/constants/enums/order_data_types.dart';
+import '../../../product/models/order-book/order_book_shelf.dart';
 import '../constants/home_texts.dart';
 import '../utilities/listen_home_value.dart';
 import '../view-model/home_view_model.dart';
+
+part 'components/list_item.dart';
+part 'components/middle_row.dart';
+part 'components/order_value.dart';
+part 'components/slider.dart';
+part 'components/table_titles.dart';
 
 /// Home Screen of the app.
 class HomeScreen extends StatelessWidget with HomeTexts, ListenHomeValue {
@@ -28,7 +36,7 @@ class HomeScreen extends StatelessWidget with HomeTexts, ListenHomeValue {
           titleIcon: Icons.auto_graph_outlined,
           titleText: HomeTexts.title,
           actionsList: _appBarActions(context),
-          textStyle: TextStyles(context).normalStyle(color: AppColors.white),
+          textStyle: TextStyles(context).titleStyle(color: AppColors.white),
         ),
       );
 
@@ -45,91 +53,79 @@ class HomeScreen extends StatelessWidget with HomeTexts, ListenHomeValue {
 
   Widget _bodyBuilder(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: context.medWidth,
-          vertical: context.lowHeight,
-        ),
+            horizontal: context.medWidth, vertical: context.lowHeight),
         child: _bodyColumn(context),
       );
 
   Widget _bodyColumn(BuildContext context) => Column(
         children: <Widget>[
-          _slider(context),
-          _tableTitles(context),
+          const _Slider(),
+          const _TableTitles(),
           const CustomDivider(),
-          SizedBox(height: context.height * .4),
-          _linedText(context, HomeTexts.sellers, AppColors.error),
-          _linedText(context, HomeTexts.buyers, AppColors.green),
+          SizedBox(height: context.height * .6),
+          LinedText(
+              text: context.tr(HomeTexts.sellers), lineColor: AppColors.error),
+          _streamBuilder(context.read<HomeViewModel>()),
+          LinedText(
+              text: context.tr(HomeTexts.buyers), lineColor: AppColors.green),
         ],
       );
 
-  Widget _linedText(BuildContext context, String textKey, Color color) =>
-      LinedText(text: context.tr(textKey), lineColor: color);
-
-  Widget _tableTitles(BuildContext context) => Row(
-        children:
-            List<Widget>.generate(HomeTexts.tableTitles.length, _tableTitle),
-      );
-
-  Widget _tableTitle(int i) => Expanded(
-        child: Column(
-          children: <Widget>[
-            BaseText(HomeTexts.tableTitles[i], fontSizeFactor: 5.5),
-            BaseText(HomeTexts.tableSubtitles[i],
-                fontSizeFactor: 3.8, flatText: true),
-          ],
-        ),
-      );
-
-  Widget _slider(BuildContext context) => Container(
-        margin: context.topPadding(Sizes.lowMed),
-        height: context.height * 6,
-        child: Row(children: _sliderRowElements(context)),
-      );
-
-  List<Widget> _sliderRowElements(BuildContext context) => <Widget>[
-        BaseText(
-          '${context.tr(HomeTexts.intervalTitle)}:',
-          style:
-              TextStyles(context).subBodyStyle(color: context.primaryDarkColor),
-          flatText: true,
-        ),
-        SizedBox(width: context.width * .6),
-        const Expanded(
-            child: CustomizedSlider(values: HomeViewModel.sliderValues)),
-      ];
-
   Widget _streamBuilder(HomeViewModel model) => StreamBuilder<dynamic>(
         stream: model.channel.stream,
-        builder: (_, AsyncSnapshot<dynamic> snapshot) {
-          final List<Widget> children = <Widget>[];
-          switch (snapshot.data) {
-            case null:
-              children
-                  .add(const Expanded(child: LoadingIndicator(sizeFactor: 30)));
-              break;
-            default:
-              children.add(
-                SizedBox(
-                  height: 300,
-                  child: Text(
-                    snapshot.data,
-                    style: const TextStyle(color: AppColors.black),
-                  ),
-                ),
-              );
-          }
-          return Center(
-            child: Column(
-              children: <Widget>[
-                ...children,
-                TextButton(
-                    onPressed: model.subscribe, child: const Text('Subscribe')),
-                TextButton(
-                    onPressed: model.unsubscribe,
-                    child: const Text('UNSubscribe')),
-              ],
-            ),
-          );
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          final Map<String, dynamic> json = _jsonizedData(snapshot.data);
+          final List<Widget> children = _dataBody(context, json);
+          return children.length > 1
+              ? Expanded(child: _body(context, children))
+              : _body(context, children);
         },
+      );
+
+  Widget _body(BuildContext context, List<Widget> children) => Container(
+        margin: context.verticalPadding(Sizes.low),
+        alignment: Alignment.center,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[...children]),
+      );
+
+  List<Widget> _dataBody(BuildContext context, Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      context.read<HomeViewModel>().setLists(json);
+      final List<OrderData> bids = listenBids(context);
+      final List<OrderData> asks = listenAsks(context);
+      double difference = 0;
+      if (bids.isNotEmpty && asks.isNotEmpty) {
+        difference = asks[0].price - bids[0].price;
+      }
+      return <Widget>[
+        Expanded(child: _valueList(asks, isReverse: true)),
+        _MiddleRow(difference: difference),
+        Expanded(child: _valueList(bids)),
+      ];
+    }
+    return <Widget>[const LoadingIndicator(sizeFactor: 30)];
+  }
+
+  Map<String, dynamic> _jsonizedData(String? data) {
+    try {
+      return jsonDecode(data ?? '');
+    } on Exception catch (_) {
+      return <String, dynamic>{};
+    }
+  }
+
+  Widget _valueList(List<OrderData> list, {bool isReverse = false}) =>
+      ListView.builder(
+        itemCount: list.length,
+        shrinkWrap: true,
+        reverse: isReverse,
+        itemBuilder: (_, int i) => _ListItem(
+          data: list[i],
+          selectedColor:
+              isReverse ? AppColors.error : AppColors.green.darken(.04),
+          isSelected: i == 0,
+        ),
       );
 }

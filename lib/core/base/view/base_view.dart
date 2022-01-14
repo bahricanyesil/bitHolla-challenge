@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../constants/enums/view-enums/view_states.dart';
 import '../../extensions/context/responsiveness_extensions.dart';
-import '../../widgets/app-bar/default_app_bar.dart';
 import '../../widgets/widgets_shelf.dart';
 import '../view-model/base_view_model.dart';
 

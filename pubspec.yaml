@@ -1,7 +1,7 @@
 name: bitholla_challenge
 description: A challenge task for bitHolla.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -39,8 +39,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+  # Automations
+  build_runner: ^2.1.5
 
+  # Clean code
   flutter_lints: ^1.0.0
+
+  # Local Storage
+  hive_generator: ^1.1.1
 
 flutter:
   uses-material-design: true

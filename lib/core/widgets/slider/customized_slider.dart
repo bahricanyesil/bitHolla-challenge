@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../extensions/color/color_extensions.dart';
 import '../../extensions/context/theme_extensions.dart';
 
 /// Callback to inform about the change in the slider value.
