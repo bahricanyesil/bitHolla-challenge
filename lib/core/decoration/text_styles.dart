@@ -1,8 +1,8 @@
-import 'package:bitholla_challenge/core/theme/color/l_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../extensions/context/responsiveness_extensions.dart';
 import '../providers/providers_shelf.dart';
+import '../theme/color/l_colors.dart';
 
 /// [TextStyles] class collects all customized [TextStyle] in one file.
 class TextStyles {
@@ -40,13 +40,18 @@ class TextStyles {
       );
 
   /// Custom text style for subbody texts in the login screen.
-  /// Such as: "forgotPassword" text.
-  TextStyle subBodyStyle(
-          {Color? color, TextDecoration? decoration, double? height}) =>
+  /// Such as: "forgotPassword" text. Default font size factor is 4.8.
+  TextStyle subBodyStyle({
+    Color? color,
+    TextDecoration? decoration,
+    double? height,
+    FontWeight? fontWeight,
+    double? fontSizeFactor,
+  }) =>
       TextStyle(
-        fontSize: _context.responsiveSize * 4.8,
+        fontSize: _context.responsiveSize * (fontSizeFactor ?? 4.8),
         color: color ?? _color,
-        fontWeight: FontWeight.w400,
+        fontWeight: fontWeight ?? FontWeight.w400,
         wordSpacing: 1.2,
         letterSpacing: .3,
         decoration: decoration,
@@ -104,12 +109,12 @@ class TextStyles {
     double? height,
   }) =>
       TextStyle(
-        fontSize: _context.responsiveSize * (fontSizeFactor ?? 3.2),
+        fontSize: _context.responsiveSize * (fontSizeFactor ?? 3.4),
         color: color ?? _color,
         fontWeight: fontWeight ?? FontWeight.w400,
         decoration: decoration,
-        letterSpacing: .3,
-        wordSpacing: .9,
+        letterSpacing: .2,
+        wordSpacing: .6,
         height: height,
       );
 

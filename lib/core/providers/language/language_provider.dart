@@ -48,14 +48,14 @@ class LanguageProvider extends ChangeNotifier {
   }
 
   void _assignLanguage(LanguageOptions language) {
-    final Locale? newLocale = supportedLocales
-        .firstWhereOrNull((Locale el) => el.languageCode == language.value);
+    final Locale? newLocale = supportedLocales.firstWhereOrNull((Locale el) =>
+        el.languageCode.toLowerCase() == language.value.toLowerCase());
     if (newLocale != null) _appLocale = newLocale;
   }
 
   /// Sets the current language to the given one.
   Future<void> setLanguage(LanguageOptions language) async {
-    _assignLanguage(_lang);
+    _assignLanguage(language);
     _lang = language;
     await SettingsLocalManager.instance
         .set(SettingsStorageKeys.language, _lang.value);

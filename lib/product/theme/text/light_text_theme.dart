@@ -6,7 +6,7 @@ class LightTextTheme extends ITextTheme {
   /// Default [LightTextTheme] constructor.
   const LightTextTheme()
       : super(
-          primaryTextColor: Colors.white,
+          primaryTextColor: const Color(0xff313131),
           secondaryTextColor: const Color(0xff616161),
         );
 }

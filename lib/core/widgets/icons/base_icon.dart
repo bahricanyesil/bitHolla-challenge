@@ -44,7 +44,7 @@ class BaseIcon extends StatelessWidget {
         iconData,
         size:
             sizeFactor != null ? (context.responsiveSize * sizeFactor!) : null,
-        color: color ?? AppColors.white,
+        color: color,
       );
 
   EdgeInsets _getPadding(BuildContext context) =>

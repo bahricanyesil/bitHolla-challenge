@@ -28,10 +28,11 @@ abstract class ILocalManager<T, R> {
   void registerAdapters();
 
   /// Gets the element from the box with the corresponding key.
-  T? get(R key) => _box?.get(key);
+  T? get(R key) => _box?.get(key.toString());
 
   /// Sets the element in the box with the corresponding key.
-  Future<void> set(R key, T item) async => await _box?.put(key, item);
+  Future<void> set(R key, T item) async =>
+      await _box?.put(key.toString(), item);
 
   /// Adds multiple items at one shot with auto-increment keys.
   Future<void> addItems(List<T> items) async => await _box?.addAll(items);
@@ -46,8 +47,8 @@ abstract class ILocalManager<T, R> {
   List<T> allValues() => _box?.values.toList() ?? <T>[];
 
   /// Removes item matching with the given keys.
-  Future<void> removeItem(R key) async => await _box?.delete(key);
+  Future<void> removeItem(R key) async => await _box?.delete(key.toString());
 
   /// Checks whether the given key exists in the box.
-  bool containsKey(R key) => _box?.containsKey(key) ?? false;
+  bool containsKey(R key) => _box?.containsKey(key.toString()) ?? false;
 }

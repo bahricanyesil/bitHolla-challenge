@@ -17,7 +17,7 @@ class _TableTitles extends StatelessWidget with ListenHomeValue {
             children: <Widget>[
               Padding(
                 padding:
-                    EdgeInsets.only(right: i == 2 ? context.width * 2.2 : 0),
+                    EdgeInsets.only(right: i == 2 ? context.width * 1.8 : 0),
                 child: BaseText(HomeTexts.tableTitles[i],
                     fontSizeFactor: 5.5, fontWeight: FontWeight.w600),
               ),
@@ -59,12 +59,15 @@ class _TableTitles extends StatelessWidget with ListenHomeValue {
       );
 
   Widget _popMenuChild(BuildContext context) => Row(
-        children: <Widget>[const Spacer(), _totalType(context), _dropDownIcon],
+        children: <Widget>[
+          const Spacer(),
+          _totalType(context),
+          _dropDownIcon(context)
+        ],
       );
 
-  Widget get _dropDownIcon => const BaseIcon(
+  Widget _dropDownIcon(BuildContext context) => const BaseIcon(
         Icons.arrow_drop_down_outlined,
-        color: AppColors.black,
         sizeFactor: 7,
         padding: EdgeInsets.zero,
       );

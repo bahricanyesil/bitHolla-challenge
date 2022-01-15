@@ -38,30 +38,44 @@ class ColoredText extends StatelessWidget {
   }
 
   Map<String, TextColor> get _markedTexts {
-    final List<String> localColored = coloredTexts;
     String tempText = text;
-    int coloredIndex =
-        localColored.indexWhere((String el) => tempText.contains(el));
+    int coloredIndex = _minColoredIndex(tempText);
     final Map<String, TextColor> mappedText = <String, TextColor>{};
     while (coloredIndex != -1) {
-      final int insertIndex = tempText.indexOf(localColored[coloredIndex]);
+      final int insertIndex =
+          tempText.toLowerCase().indexOf(coloredTexts[coloredIndex]);
       final String coloredText = coloredTexts[coloredIndex];
       if (insertIndex != 0) {
         mappedText[tempText.substring(0, insertIndex)] = TextColor.black;
       }
-      mappedText[coloredText] = TextColor.primary;
+      coloredIndex = tempText.toLowerCase().indexOf(coloredText);
+      mappedText[tempText.substring(
+          coloredIndex, coloredIndex + coloredText.length)] = TextColor.primary;
       if (insertIndex + coloredText.length < tempText.length) {
         tempText = tempText.substring(insertIndex + coloredText.length);
       } else {
         return mappedText;
       }
-      coloredIndex =
-          localColored.indexWhere((String el) => tempText.contains(el));
+      coloredIndex = _minColoredIndex(tempText);
     }
     mappedText[tempText] = TextColor.black;
     return mappedText;
   }
 
+  int _minColoredIndex(String tempText) {
+    int min = -1;
+    int minItemIndex = -1;
+    for (int i = 0; i < coloredTexts.length; i++) {
+      final int index =
+          tempText.toLowerCase().indexOf(coloredTexts[i].toLowerCase());
+      if ((index < min && index != -1) || (index != -1 && min == -1)) {
+        min = index;
+        minItemIndex = i;
+      }
+    }
+    return minItemIndex;
+  }
+
   TextStyle _textStyle(BuildContext context, {Color? color}) =>
-      TextStyles(context).subtitleTextStyle(height: 2, color: color);
+      TextStyles(context).subtitleTextStyle(height: 1.9, color: color);
 }

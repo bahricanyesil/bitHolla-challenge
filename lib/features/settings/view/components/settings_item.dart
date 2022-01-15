@@ -13,15 +13,21 @@ class _SettingsItem extends StatelessWidget
           minLeadingWidth: 0,
           minVerticalPadding: 0,
           dense: true,
-          child: _expansionTile(context),
+          child: settings.isExpansionTile
+              ? _expansionTile(context)
+              : _SettingsSwitchTile(
+                  icon: _icon,
+                  title: _title(context),
+                  subtitle: _subtitle(context),
+                ),
         ),
       );
 
   Widget _expansionTile(BuildContext context) => ExpansionTile(
         collapsedTextColor: context.primaryLightColor,
         collapsedIconColor: context.primaryLightColor,
-        tilePadding: EdgeInsets.symmetric(horizontal: context.width * 1.5),
-        leading: PrimaryBaseIcon(settings.icon, sizeFactor: 9),
+        tilePadding: context.horizontalPadding(Sizes.low),
+        leading: _icon,
         title: _title(context),
         subtitle: _subtitle(context),
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
@@ -31,35 +37,67 @@ class _SettingsItem extends StatelessWidget
 
   List<Widget> _children(BuildContext context) {
     switch (settings) {
-      case SettingsOptions.visibleTaskSections:
-        return List<CustomCheckboxTile>.generate(
-            10, (int i) => _checkbox(i, context));
+      case SettingsOptions.language:
+        return <Widget>[const _SettingsLanguageRow()];
       case SettingsOptions.info:
-        return <Widget>[]; //_infoTexts(context);
+        return _infoTexts(context);
+      case SettingsOptions.socialInfo:
+        return _socialMedia(context);
+      default:
+        return <Widget>[];
     }
   }
 
-  /*List<Widget> _infoTexts(BuildContext context) => List<Padding>.generate(
+  List<Widget> _socialMedia(BuildContext context) => <Widget>[
+        Row(
+          children: List<Widget>.generate(
+              SettingsTexts.socialMediaAccounts.length,
+              (int i) => _item(i, context)),
+        )
+      ];
+
+  Widget _item(int i, BuildContext context) {
+    final SocialMediaModel account = SettingsTexts.socialMediaAccounts[i];
+    return Expanded(
+      child: IconButton(
+        padding: context.allPadding(Sizes.lowMed),
+        onPressed: () async => launch(account.link),
+        icon: Image.asset(
+          account.nameKey.iconPng,
+          color: _color(account.nameKey, context),
+        ),
+        splashRadius: 25,
+      ),
+    );
+  }
+
+  Color? _color(String accountName, BuildContext context) =>
+      accountName == 'github' && context.read<ThemeProvider>().isDark
+          ? AppColors.white
+          : null;
+
+  List<Widget> _infoTexts(BuildContext context) => List<Padding>.generate(
         SettingsTexts.infoSentences.keys.length,
         (int i) => Padding(
           padding: context.horizontalPadding(Sizes.lowMed),
           child: BulletColoredText(
-            text: SettingsTexts.infoSentences.keys.elementAt(i),
-            coloredTexts: SettingsTexts.infoSentences.values.elementAt(i),
+            text: context.tr(SettingsTexts.infoSentences.keys.elementAt(i)),
+            coloredTexts: _translatedValues(i, context),
           ),
         ),
-      );*/
+      );
 
-  CustomCheckboxTile _checkbox(int i, BuildContext context)
-      /*final TaskStatus status = TaskStatus.values[i];
-    final SettingsViewModel model = context.read<SettingsViewModel>();
-    return CustomCheckboxTile(
-      text: status.value,
-      onTap: (bool value) => model.setSectionVisibility(status, value),
-      initialValue: listenVisibleSection(context, status),
-    );*/
-      =>
-      CustomCheckboxTile(onTap: (bool val) {}, text: "text");
+  List<String> _translatedValues(int i, BuildContext context) {
+    final List<String> valueKeys =
+        SettingsTexts.infoSentences.values.elementAt(i);
+    final List<String> translatedValues = <String>[];
+    for (int j = 0; j < valueKeys.length; j++) {
+      translatedValues.add(context.tr(valueKeys[j]).toLowerCase());
+    }
+    return translatedValues;
+  }
+
+  Widget get _icon => PrimaryBaseIcon(settings.icon, sizeFactor: 9);
 
   Widget _title(BuildContext context) => BaseText(
         settings.title,

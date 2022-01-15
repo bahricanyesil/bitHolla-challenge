@@ -3,6 +3,9 @@ extension StringUtilExtensions on String {
   /// To use correct ellipsis behavior on text overflows.
   String get useCorrectEllipsis => replaceAll('', '\u200B');
 
+  /// Returns the icon asset path for the given name.
+  String get iconPng => 'assets/images/icons/$this.png';
+
   /// Puts comma for every 3 digits before the decimal points.
   String thousandComma({int fraction = 4}) {
     int dotIndex = indexOf('.');
@@ -23,7 +26,7 @@ extension StringUtilExtensions on String {
     }
     int lastIndex = fraction + 1;
     if (lastIndex >= afterDot.length) {
-      lastIndex = afterDot.length < 0 ? 0 : afterDot.length;
+      lastIndex = afterDot.length;
     }
     return completeString + (afterDot.substring(0, lastIndex));
   }

@@ -13,8 +13,7 @@ class _Slider extends StatelessWidget {
   List<Widget> _sliderRowElements(BuildContext context) => <Widget>[
         BaseText(
           '${context.tr(HomeTexts.intervalTitle)}:',
-          style:
-              TextStyles(context).subBodyStyle(color: context.primaryDarkColor),
+          style: TextStyles(context).subBodyStyle(),
           flatText: true,
         ),
         SizedBox(width: context.width * .6),

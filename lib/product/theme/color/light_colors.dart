@@ -46,5 +46,5 @@ class LightColors extends IColors {
   };
 
   static const Color _primaryLight = Color(0xff809fff);
-  static const Color _primaryDark = Color(0xff4d79ff);
+  static const Color _primaryDark = Color(0xff668cff);
 }

@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bitholla_challenge/features/home/constants/home_texts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/base/view-model/base_view_model.dart';
 import '../../../product/constants/enums/socket_connection_enums.dart';
 import '../../../product/models/order-book/order_book_response.dart';
 import '../../../product/models/order-book/order_data.dart';
+import '../constants/home_texts.dart';
 
 /// View model to manaage the data on home screen.
 class HomeViewModel extends BaseViewModel {

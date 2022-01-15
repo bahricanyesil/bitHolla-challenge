@@ -84,11 +84,11 @@ abstract class ITheme {
       );
 
   IconThemeData get _iconTheme => IconThemeData(
-        color: colors.colorScheme.primary,
+        color: textTheme.primaryTextColor,
       );
 
-  AppBarTheme get _appBarTheme =>
-      AppBarTheme(titleTextStyle: textTheme.data.subtitle2);
+  AppBarTheme get _appBarTheme => AppBarTheme(
+      titleTextStyle: textTheme.data.subtitle2, color: colors.primaryColorDark);
 
   DividerThemeData get _dividerThemeData =>
       const DividerThemeData(color: AppColors.primaryColor, thickness: 1);

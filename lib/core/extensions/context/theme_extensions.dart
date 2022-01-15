@@ -31,6 +31,9 @@ extension ThemeExtension on BuildContext {
   /// Primary Dark color of the theme.
   Color get primaryDarkColor => theme.primaryColor.darken(.15);
 
+  /// Returns thetext theme.
+  TextTheme get textTheme => theme.textTheme;
+
   /// Headline1 text style for very large texts.
   TextStyle get headline1 => _getStyle(theme.textTheme.headline1);
 
