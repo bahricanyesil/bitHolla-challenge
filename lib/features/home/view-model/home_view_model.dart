@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/base/view-model/base_view_model.dart';
+import '../../../core/extensions/string/string_util_extensions.dart';
 import '../../../product/constants/enums/socket_connection_enums.dart';
 import '../../../product/models/order-book/order_book_response.dart';
 import '../../../product/models/order-book/order_data.dart';
@@ -118,8 +119,8 @@ class HomeViewModel extends BaseViewModel {
     asks = _filterList(_asks);
   }
 
-  double _fixedPrice(OrderData data) =>
-      double.parse(data.price.toStringAsFixed(4 - sliderIndex));
+  double _fixedPrice(OrderData data) => double.parse(
+      data.price.toStringAsFixed(4 - sliderIndex).deleteTrailingZeros);
 
   /// Total bid amount.
   double get totalBid {

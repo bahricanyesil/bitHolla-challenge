@@ -23,7 +23,7 @@ class _MiddleRow extends StatelessWidget {
             final double value = ((json['data'] as List<dynamic>)[0]
                 as Map<String, dynamic>)['price'];
             return BaseText(
-              value.toStringAsFixed(4),
+              value.delDecimalZeros,
               flatText: true,
               fontWeight: FontWeight.bold,
               fontSizeFactor: 7,

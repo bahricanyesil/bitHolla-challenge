@@ -6,6 +6,12 @@ extension StringUtilExtensions on String {
   /// Returns the icon asset path for the given name.
   String get iconPng => 'assets/images/icons/$this.png';
 
+  /// Deletes the trailing zeros.
+  String get deleteTrailingZeros {
+    final RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
+    return replaceAll(regex, '');
+  }
+
   /// Puts comma for every 3 digits before the decimal points.
   String thousandComma({int fraction = 4}) {
     int dotIndex = indexOf('.');
