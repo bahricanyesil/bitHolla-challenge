@@ -41,26 +41,35 @@ class HomeViewModel extends BaseViewModel {
   /// Indicates whether the selected filter is the amount for the total.
   bool isTotalAmount = true;
 
-  static const Duration _pingInterval = Duration(seconds: 28);
+  /// Last trade value.
+  double lastTrade = -1;
+
+  static const Duration _pingInterval = Duration(seconds: 20);
+
+  late final Timer _timer;
+
+  static final String _pingJson = jsonEncode(<String, dynamic>{"op": 'ping'});
 
   @override
   FutureOr<void> init() async {
-    channel = IOWebSocketChannel.connect(
-      Uri.parse('wss://api.hollaex.com/stream'),
-      pingInterval: _pingInterval,
-    );
+    channel =
+        IOWebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
 
-    tradeChannel = IOWebSocketChannel.connect(
-      Uri.parse('wss://api.hollaex.com/stream'),
-      pingInterval: _pingInterval,
-    );
+    tradeChannel =
+        WebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
     subscribe();
+
+    _timer = Timer.periodic(_pingInterval, (_) {
+      channel.sink.add(_pingJson);
+      tradeChannel.sink.add(_pingJson);
+    });
   }
 
   @override
   void dispose() {
     channel.sink.close();
     tradeChannel.sink.close();
+    _timer.cancel();
     super.dispose();
   }
 

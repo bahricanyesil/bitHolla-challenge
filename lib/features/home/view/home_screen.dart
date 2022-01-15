@@ -90,8 +90,9 @@ class HomeScreen extends StatelessWidget with HomeTexts, ListenHomeValue {
       );
 
   List<Widget> _dataBody(BuildContext context, Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      context.read<HomeViewModel>().setLists(json);
+    final HomeViewModel model = context.read<HomeViewModel>();
+    if (json['data'] != null || model.bids.isNotEmpty) {
+      if (json['data'] != null) model.setLists(json);
       final List<OrderData> bids = listenBids(context);
       final List<OrderData> asks = listenAsks(context);
       double difference = 0;

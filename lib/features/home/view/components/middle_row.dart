@@ -16,12 +16,17 @@ class _MiddleRow extends StatelessWidget {
 
   Widget _lastTrade(BuildContext context) => StreamBuilder<dynamic>(
       stream: context.read<HomeViewModel>().tradeChannel.stream,
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+      builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
         try {
+          final HomeViewModel model = ctx.read<HomeViewModel>();
+          final double oldValue = model.lastTrade;
           final Map<String, dynamic> json = jsonDecode(snapshot.data ?? '');
-          if (json['topic'] != null) {
-            final double value = ((json['data'] as List<dynamic>)[0]
-                as Map<String, dynamic>)['price'];
+          if (json['data'] != null || oldValue >= 0) {
+            final double value = json['data'] == null
+                ? oldValue
+                : ((json['data'] as List<dynamic>)[0]
+                    as Map<String, dynamic>)['price'];
+            model.lastTrade = value;
             return BaseText(
               value.delDecimalZeros,
               flatText: true,
