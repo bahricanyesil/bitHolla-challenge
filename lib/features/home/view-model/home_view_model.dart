@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/base/view-model/base_view_model.dart';
@@ -40,12 +41,19 @@ class HomeViewModel extends BaseViewModel {
   /// Indicates whether the selected filter is the amount for the total.
   bool isTotalAmount = true;
 
+  static const Duration _pingInterval = Duration(seconds: 28);
+
   @override
   FutureOr<void> init() async {
-    channel =
-        WebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
-    tradeChannel =
-        WebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
+    channel = IOWebSocketChannel.connect(
+      Uri.parse('wss://api.hollaex.com/stream'),
+      pingInterval: _pingInterval,
+    );
+
+    tradeChannel = IOWebSocketChannel.connect(
+      Uri.parse('wss://api.hollaex.com/stream'),
+      pingInterval: _pingInterval,
+    );
     subscribe();
   }
 
