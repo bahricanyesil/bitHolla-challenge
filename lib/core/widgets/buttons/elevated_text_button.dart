@@ -1,4 +1,4 @@
-import 'package:bitholla_challenge/core/helpers/material_state_helper.dart';
+import '../../helpers/material_state_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../extensions/context/responsiveness_extensions.dart';

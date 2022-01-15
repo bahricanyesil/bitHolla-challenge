@@ -1,5 +1,5 @@
-import 'package:bitholla_challenge/core/constants/enums/settings-enums/language_options.dart';
-import 'package:bitholla_challenge/core/widgets/text/colored-text/bullet_colored_text.dart';
+import '../../../core/constants/enums/settings-enums/language_options.dart';
+import '../../../core/widgets/text/colored-text/bullet_colored_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';

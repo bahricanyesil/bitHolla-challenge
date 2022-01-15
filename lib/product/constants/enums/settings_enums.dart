@@ -23,7 +23,7 @@ extension StringSettingsValues on SettingsOptions {
       case SettingsOptions.language:
         return 'language';
       case SettingsOptions.theme:
-        return 'theme';
+        return 'dark_mode';
       case SettingsOptions.info:
         return 'info';
       case SettingsOptions.socialInfo:

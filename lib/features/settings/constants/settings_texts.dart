@@ -33,7 +33,7 @@ mixin SettingsTexts {
         scheme: 'mailto',
         path: 'bahricanyesil@gmail.com',
         query: _encodeQueryParameters(<String, String>{
-          'subject': 'From BitHolla Challenge App',
+          'subject': 'BitHolla Challenge App',
         }),
       );
 
