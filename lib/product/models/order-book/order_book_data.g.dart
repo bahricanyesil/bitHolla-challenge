@@ -6,6 +6,7 @@ part of 'order_book_data.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+/// Adapter for order book.
 class OrderBookDataAdapter extends TypeAdapter<OrderBookData> {
   @override
   final int typeId = 1;
@@ -17,8 +18,8 @@ class OrderBookDataAdapter extends TypeAdapter<OrderBookData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return OrderBookData(
-      bids: (fields[2] as List).cast<OrderData>(),
-      asks: (fields[3] as List).cast<OrderData>(),
+      bids: (fields[2] as List<OrderData>).cast<OrderData>(),
+      asks: (fields[3] as List<OrderData>).cast<OrderData>(),
     );
   }
 

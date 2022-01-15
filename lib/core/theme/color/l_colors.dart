@@ -95,13 +95,4 @@ class AppColors {
 
   /// Color for loading bubbles.
   static const Color loadingColor = Color(0xff708edf);
-
-  /// High prioritized task color.
-  static const Color highPriority = Color(0xfff47174);
-
-  /// Medium prioritized task color.
-  static const Color medPriority = Color(0xffeaea7b);
-
-  /// Low prioritized task color.
-  static const Color lowPriority = Color(0xffacd1af);
 }

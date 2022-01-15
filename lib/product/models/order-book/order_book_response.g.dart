@@ -6,6 +6,7 @@ part of 'order_book_response.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+/// Adapter for order book response.
 class OrderBookResponseAdapter extends TypeAdapter<OrderBookResponse> {
   @override
   final int typeId = 0;

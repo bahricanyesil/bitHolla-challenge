@@ -6,6 +6,7 @@ part of 'order_data.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+/// Adapter for order data.
 class OrderDataAdapter extends TypeAdapter<OrderData> {
   @override
   final int typeId = 2;

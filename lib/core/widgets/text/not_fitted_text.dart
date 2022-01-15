@@ -24,7 +24,7 @@ class NotFittedText extends StatelessWidget {
   /// Custom style for the text.
   final TextStyle? style;
 
-  /// Alignment of the task.
+  /// Alignment of the text.
   final TextAlign textAlign;
 
   /// Maximum liens for the text.

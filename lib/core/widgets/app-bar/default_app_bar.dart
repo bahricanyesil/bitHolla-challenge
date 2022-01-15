@@ -69,10 +69,14 @@ class DefaultAppBar extends AppBar implements PreferredSizeWidget {
       );
 
   static IconButton get _backButton => IconButton(
-        icon: const BaseIcon(Icons.chevron_left_outlined, sizeFactor: 20, padding: EdgeInsets.zero),
+        icon: const BaseIcon(
+          Icons.chevron_left_outlined,
+          sizeFactor: 20,
+          padding: EdgeInsets.zero,
+        ),
         splashRadius: 20,
-        padding: EdgeInsets.only(right: _horizontalPadding / 3),
-    constraints: BoxConstraints(),
+        padding: const EdgeInsets.only(right: _horizontalPadding / 3),
+        constraints: const BoxConstraints(),
         onPressed: () => NavigationManager.instance.popRoute(),
       );
 

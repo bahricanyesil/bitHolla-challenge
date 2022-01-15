@@ -45,7 +45,7 @@ class BaseText extends StatelessWidget {
   /// Custom font weight.
   final FontWeight? fontWeight;
 
-  /// Maximum length for the task.
+  /// Maximum length for the text.
   final int maxLength;
 
   /// Whether the given text is directly a text or to be translated.

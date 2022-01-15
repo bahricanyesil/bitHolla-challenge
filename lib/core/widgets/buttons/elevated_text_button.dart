@@ -1,7 +1,7 @@
-import '../../helpers/material_state_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../extensions/context/responsiveness_extensions.dart';
+import '../../helpers/material_state_helper.dart';
 import '../text/base_text.dart';
 
 /// Custom elevated button specific to text widgets.

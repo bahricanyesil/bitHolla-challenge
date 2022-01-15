@@ -1,7 +1,6 @@
 part of '../settings_screen.dart';
 
-class _SettingsItem extends StatelessWidget
-    with SettingsTexts, ListenSettingsValue {
+class _SettingsItem extends StatelessWidget with SettingsTexts {
   const _SettingsItem({required this.settings, Key? key}) : super(key: key);
   final SettingsOptions settings;
 
