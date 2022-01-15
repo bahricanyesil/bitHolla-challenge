@@ -53,7 +53,7 @@ class HomeViewModel extends BaseViewModel {
   @override
   FutureOr<void> init() async {
     channel =
-        IOWebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
+        WebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
 
     tradeChannel =
         WebSocketChannel.connect(Uri.parse('wss://api.hollaex.com/stream'));
